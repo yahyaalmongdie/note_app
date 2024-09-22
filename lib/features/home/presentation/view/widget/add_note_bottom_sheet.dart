@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/core/widget/custom_text_form_feild.dart';
+import 'package:note_app/core/widget/custom_text_form_felid.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
   const AddNoteBottomSheet({super.key});
@@ -13,7 +13,16 @@ class AddNoteBottomSheet extends StatelessWidget {
           SizedBox(
             height: 32,
           ),
-          CustomTextFormFiled(hintText: "Title",)
+          CustomTextFormFiled(
+            hintText: "Title",
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomTextFormFiled(
+            hintText: "content",
+            maxLines: 6,
+          ),
         ],
       ),
     );
