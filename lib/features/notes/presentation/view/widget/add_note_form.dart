@@ -2,21 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:note_app/core/widget/custom_text_form_felid.dart';
 import 'package:note_app/core/widget/custom_button.dart';
 
-class AddNoteBottomSheet extends StatelessWidget {
-  const AddNoteBottomSheet({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: AddNoteForm(),
-      ),
-    );
-  }
-}
-
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({
     super.key,
@@ -60,7 +45,16 @@ class _AddNoteFormState extends State<AddNoteForm> {
           const SizedBox(
             height: 32,
           ),
-          CustomButton(onPressed: () {}, btnText: "Add"),
+          CustomButton(
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  formKey.currentState!.save();
+                } else {
+                  autovalidateMode = AutovalidateMode.always;
+                  setState(() {});
+                }
+              },
+              btnText: "Add"),
           const SizedBox(
             height: 16,
           )
