@@ -8,16 +8,9 @@ part 'view_notes_state.dart';
 
 class ViewNotesCubit extends Cubit<ViewNotesState> {
   ViewNotesCubit() : super(ViewNotesInitial());
-
+  List<NoteModel>? notes;
   fetchNotes() {
-    emit(ViewNoteLoading());
-    try {
-      var notesBox = Hive.box<NoteModel>(kNotesBox);
-
-      List<NoteModel> notes = notesBox.values.toList();
-      emit(ViewNoteSuccess(notes: notes));
-    } catch (e) {
-      emit(ViewNoteFailure(errorMessage: e.toString()));
-    }
+    var notesBox = Hive.box<NoteModel>(kNotesBox);
+    notes = notesBox.values.toList();
   }
 }

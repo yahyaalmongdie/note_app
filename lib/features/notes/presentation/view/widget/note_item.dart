@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note_app/features/notes/data/model/note_model.dart';
 import 'package:note_app/features/notes/presentation/view/page/edit_note_view.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({super.key});
-
+  const NoteItem({super.key, required this.noteModel});
+  final NoteModel noteModel;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -22,14 +23,14 @@ class NoteItem extends StatelessWidget {
           children: [
             ListTile(
                 contentPadding: const EdgeInsets.all(0),
-                title: const Text(
-                  "Flutter tips",
-                  style: TextStyle(fontSize: 26, color: Colors.black),
+                title: Text(
+                  noteModel.title,
+                  style: const TextStyle(fontSize: 26, color: Colors.black),
                 ),
                 subtitle: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Text(
-                    "Build your career with  Yahya Almongdie",
+                    noteModel.content,
                     style: TextStyle(
                         fontSize: 18, color: Colors.black.withOpacity(.5)),
                   ),
@@ -41,7 +42,7 @@ class NoteItem extends StatelessWidget {
                       color: Colors.black,
                       size: 24,
                     ))),
-            Text("May 21,2022",
+            Text(noteModel.date,
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.black.withOpacity(.5),
