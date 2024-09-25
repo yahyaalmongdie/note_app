@@ -48,23 +48,37 @@ class _AddNoteFormState extends State<AddNoteForm> {
           const SizedBox(
             height: 32,
           ),
-          CustomButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                  var noteModel = NoteModel(
-                      title: title!,
-                      content: content!,
-                      date: DateTime.now().toString(),
-                      color: Colors.amber.value);
-                  BlocProvider.of<AddNoteCubit>(context)
-                      .addNote(noteModel: noteModel);
-                } else {
-                  autovalidateMode = AutovalidateMode.always;
-                  setState(() {});
-                }
-              },
-              btnText: "Add"),
+          BlocConsumer<AddNoteCubit, AddNoteState>(
+            listener: (context, state) {
+              if (state is AddNoteFailure) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              }
+              if (state is AddNoteSuccess) {
+                Navigator.pop(context);
+              }
+            },
+            builder: (context, state) {
+              return CustomButton(
+                  isLoading: state is AddNoteLoading ? true : false,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      var noteModel = NoteModel(
+                          title: title!,
+                          content: content!,
+                          date: DateTime.now().toString(),
+                          color: Colors.amber.value);
+                      BlocProvider.of<AddNoteCubit>(context)
+                          .addNote(noteModel: noteModel);
+                    } else {
+                      autovalidateMode = AutovalidateMode.always;
+                      setState(() {});
+                    }
+                  },
+                  btnText: "Add");
+            },
+          ),
           const SizedBox(
             height: 16,
           )
