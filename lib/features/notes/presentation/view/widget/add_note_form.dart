@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:note_app/core/widget/custom_text_form_felid.dart';
 import 'package:note_app/core/widget/custom_button.dart';
+import 'package:note_app/core/widget/custom_text_form_felid.dart';
 import 'package:note_app/features/notes/data/model/note_model.dart';
 import 'package:note_app/features/notes/presentation/manager/add_note_cubit/add_note_cubit.dart';
 import 'package:note_app/features/notes/presentation/manager/view_notes_cubit/view_notes_cubit.dart';
+import 'package:note_app/features/notes/presentation/view/widget/color_list_view.dart';
 
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({
@@ -47,6 +48,10 @@ class _AddNoteFormState extends State<AddNoteForm> {
             hintText: "content",
             maxLines: 6,
           ),
+          const SizedBox(
+            height: 16,
+          ),
+          const ColorListView(),
           const SizedBox(
             height: 32,
           ),
