@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/core/widget/color_item.dart';
+import 'package:note_app/features/notes/presentation/manager/add_note_cubit/add_note_cubit.dart';
 
 class ColorListView extends StatefulWidget {
   const ColorListView({super.key});
@@ -31,10 +33,11 @@ class _ColorListViewState extends State<ColorListView> {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+            padding:  EdgeInsets.symmetric(horizontal: 6, vertical: 4),
             child: GestureDetector(
               onTap: () {
                 currentIndex = index;
+ BlocProvider.of<AddNoteCubit>(context).color = colors[index];               
                 setState(() {});
               },
               child: ColorItem(
