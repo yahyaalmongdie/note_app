@@ -5,6 +5,7 @@ import 'package:note_app/core/widget/custom_text_form_felid.dart';
 import 'package:note_app/core/widget/custom_button.dart';
 import 'package:note_app/features/notes/data/model/note_model.dart';
 import 'package:note_app/features/notes/presentation/manager/add_note_cubit/add_note_cubit.dart';
+import 'package:note_app/features/notes/presentation/manager/view_notes_cubit/view_notes_cubit.dart';
 
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({
@@ -56,6 +57,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                     .showSnackBar(SnackBar(content: Text(state.errorMessage)));
               }
               if (state is AddNoteSuccess) {
+                BlocProvider.of<ViewNotesCubit>(context).fetchNotes();
                 Navigator.pop(context);
               }
             },
@@ -65,8 +67,9 @@ class _AddNoteFormState extends State<AddNoteForm> {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
-                      var currentDate=DateTime.now();
-                      var currentFormattedDate=DateFormat("dd-MM-yyyy").format(currentDate);
+                      var currentDate = DateTime.now();
+                      var currentFormattedDate =
+                          DateFormat("dd-MM-yyyy").format(currentDate);
                       var noteModel = NoteModel(
                           title: title!,
                           content: content!,

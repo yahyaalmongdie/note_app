@@ -4,4 +4,5 @@ part of 'view_notes_cubit.dart';
 sealed class ViewNotesState {}
 
 final class ViewNotesInitial extends ViewNotesState {}
+final class ViewNotesSuccess extends ViewNotesState {}
 
