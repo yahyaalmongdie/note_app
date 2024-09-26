@@ -1,18 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/core/widget/color_item.dart';
 
-class ColorListView extends StatelessWidget {
+class ColorListView extends StatefulWidget {
   const ColorListView({super.key});
 
   @override
+  State<ColorListView> createState() => _ColorListViewState();
+}
+
+class _ColorListViewState extends State<ColorListView> {
+  int currentIndex = 0;
+
+  List<Color> colors = [
+    const Color(0xffdfdfdf),
+    const Color(0xff876765),
+    const Color(0xff549289),
+    const Color(0xff098765),
+    const Color(0xff678965),
+    const Color(0xff567890),
+    const Color(0xff234564),
+    const Color(0xff879890),
+    const Color(0xff565644),
+  ];
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 38*2,
+      height: 38 * 2,
       child: ListView.builder(
-        itemCount: 10,
+        itemCount: colors.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return const ColorItem();
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+            child: GestureDetector(
+              onTap: () {
+                currentIndex = index;
+                setState(() {});
+              },
+              child: ColorItem(
+                isActive: currentIndex == index,
+                color: colors[index],
+              ),
+            ),
+          );
         },
       ),
     );
